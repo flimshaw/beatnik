@@ -1,0 +1,308 @@
+#!/usr/bin/perl
+#######################################################
+#
+# "The shoe-maker on earth that had the soul of a poet
+#       in him won't have to make shoes here."
+#
+#                                     -Mark Twain
+#
+#######################################################
+#
+# Beatnik Box - Version 2.04 Alpha
+#
+# Programming Begins 11.10.03 at 8:32pm
+# at 859 N. 21st Street, Apt #2, Philadelphia, PA 19130
+#
+# The Brainchild of Charles RMC Hoey
+# Intended for a Video Installation
+# 
+#######################################################
+#
+# Day 5: 11.15.03 12:28pm
+# Alan Parsons Project
+#
+# So, I drank a fair amount last night, but I drank it
+# over the course of the entire evening, so I never 
+# got drunk, but today my stomach is like, "you eeediot!"
+# I've got Alan Parsons on the headphones, as Jason's
+# still asleep on my floor.  My neck hurts A LOT from 
+# headbanging Wayne's World style when Bohemian Rhapsody
+# came on.  And yet, I feel an irresistible urge to teach
+# machines grammar.
+#
+#######################################################
+#
+# 1:53pm
+# Jane's 21st Birthday Mixtape (on MD)
+#
+# Jason continues to sleep.  I made some eggs and coffee
+# and took a shower.  My neck continues to throb.  I think
+# that I'm going to have Strunk do a couple of passes on
+# the structure before it gets handed off to Kerouac.  And
+# also, Kerouac is going to fill the words into the array
+# without printing them to the screen, and then Strunk will
+# do one last check for duplicate words, a vs. an, and things
+# of that nature.  One check for structure, one check for style.
+#
+########################################################
+
+# read the text files into the word array
+
+open(ARTICLES, 'article');
+@article = <ARTICLES>;
+close(ARTICLES);
+
+open(VERBT, 'verbs.trans');
+@verbstrans = <VERBT>;
+close(VERBT);
+
+open(VERBINT, 'verbs.intrans');
+@verbsintrans = <VERBINT>;
+close(VERBINT);
+
+open(ADJ, 'adjective');
+@adjectives = <ADJ>;
+close(ADJ);
+
+open(ADV, 'adverb');
+@adverbs = <ADV>;
+close(ADV);
+
+open(NOUNT, 'nouns.things');
+@nounthings = <NOUNT>;
+close(NOUNT);
+
+open(NOUNPE, 'nouns.people');
+@nounpeople = <NOUNPE>;
+close(NOUNPE);
+
+open(NOUNPL, 'nouns.places');
+@nounplaces = <NOUNPL>;
+close(NOUNPL);
+
+open(PREP, 'preposition');
+@prepositions = <PREP>;
+close(PREP);
+
+open(CONJ, 'conjunction');
+@conjunction = <CONJ>;
+close(CONJ);
+
+# Ezra Pound determines how many lines/words the poem will be
+sub pound{
+
+	$lines = int( rand(15)) + 3;
+
+	$words = int( rand(8)) + 3;
+
+}
+
+# Allan Ginsberg decides the poem structure for Ezra's value
+sub ginsberg{
+	
+	# define the poem array per Pound's instructions
+	$poem[$_[0]][$_[1]];
+	
+	# pick a random number of words for each line
+	for($lines; $i < $lines; $i++) {
+		$wordcount[$i] = int( rand($words)) +1;
+	}
+	$i = 0;
+	# define each line
+	for($lines; $i < $lines; $i++) {
+		$flaggo = 1;
+		for($wordcount[$i]; $x < $wordcount[$i]; $x++) {
+		# determine what type of word it will be
+		# The following is a key for word types:
+		# 0 = article
+		# 1 = verb.trans
+		# 2 = verb.intrans
+		# 3 = adjective
+		# 4 = adverb
+		# 5 = noun.thing
+		# 6 = noun.person
+		# 7 = noun.place
+		# 8 = preposition
+		# 9 = conjunction
+		if (!($flaggo)) {
+			$type = strunk($i, $x);
+#			print " R$type";
+#			print " ($prevword)";
+		} else {
+			$type = int( rand(9)) + 0;
+			$flaggo--;
+#			print " S$type"
+		}
+		$poem[$i][$x] = $type;
+		}
+#		print "\n";
+#		print "\nThis would be racther($i, $x).\n";
+		$x = 0;
+	}
+
+}
+
+# Strunk checks to see what words are valid for input by looking at
+# the part of speech of the previous word used
+sub strunk{
+	$privy = $_[1] - 1;
+	$prevword = $poem[$_[0]][$privy];
+	# make sure it's not the first word in the line
+#	if($privy > 0) {
+		# if article
+		if($wordcount[$_[0]] < 2) {
+			@goods = (1, 2, 9);
+			$val = int( rand(3)) + 0;
+			return $goods[$val];
+		} elsif($prevword == 0 || $_[1] == $wordcount[$_[0]]) {
+			@goods = (1, 2, 3, 4, 5, 6, 7);
+			$val = int( rand(7)) + 0;
+			return $goods[$val];
+		} elsif($prevword == 1) {
+			@goods = (3, 4, 5, 6, 7, 9);
+			$val = int( rand(6)) + 0;
+			return $goods[$val];
+		} elsif($prevword == 2) {
+			@goods = (4, 8, 9);
+			$val = int ( rand(3)) + 0;
+			return $goods[$val];
+		} elsif($prevword == 3) {
+			@goods = (5, 6, 7);
+			$val = int ( rand(3)) + 0;
+			return $goods[$val];
+		} elsif($prevword == 4) {
+			@goods = (1, 2, 3, 4);
+			$val = int ( rand(4)) + 0;
+			return $goods[$val];
+		} elsif($prevword > 4 && $prevword < 8) {
+			@goods = (9, 4);
+			$val = int ( rand(2)) + 0;
+			return $goods[$val];
+		} elsif($prevword == 8) {
+			@goods = (3, 5, 6, 7);
+			$val = int ( rand(4)) + 0;
+			return $goods[$val];
+		} else {
+			$val = int ( rand(9)) + 0;
+			return $val;
+		}
+#	} else {
+#		$val = int ( rand(10)) + 0;
+#		return $val;
+
+}
+
+# Jack Kerouac decides which words to place into the poem ginsberg has
+# designed.
+
+sub kerouac{
+
+	for($lines; $b < $lines; $b++) {
+		$c = 0;
+		for($wordcount[$b]; $c < $wordcount[$b]; $c++){
+			print "($poem[$b][$c])";				
+			if($poem[$b][$c] == 1) {
+				$scratch = int ( rand(@verbstrans)) + 0;
+				chomp($verbstrans[$scratch]);
+				$poem[$b][$c] = $verbstrans[$scratch];
+#				print " $verbstrans[$scratch]";
+			} elsif($poem[$b][$c] == 2) {
+				$scratch = int ( rand(@verbsintrans)) + 0;
+                                chomp($verbsintrans[$scratch]);
+				$poem[$b][$c] = $verbsintrans[$scratch];
+#				print " $verbsintrans[$scratch]";
+			} elsif($poem[$b][$c] == 3) {
+                                $scratch = int ( rand(@adjectives)) + 0;
+                                chomp($adjectives[$scratch]);
+                                $poem[$b][$c] = $adjectives[$scratch];
+#                                print " $adjectives[$scratch]";
+                        } elsif($poem[$b][$c] == 4) {
+                                $scratch = int ( rand(@adverbs)) + 0;
+                                chomp($adverbs[$scratch]);
+                                $poem[$b][$c] = $adverbs[$scratch];
+#                                print " $adverbs[$scratch]";
+                        } elsif($poem[$b][$c] == 5) {
+                                $scratch = int ( rand(@nounthings)) + 0;
+                                chomp($nounthings[$scratch]);
+                                $poem[$b][$c] = $nounthings[$scratch];
+#                                print " $nounthings[$scratch]";
+                        } elsif($poem[$b][$c] == 6) {
+                                $scratch = int ( rand(@nounpeople)) + 0;
+                                chomp($nounpeople[$scratch]);
+                                $poem[$b][$c] = $nounpeople[$scratch];
+#                                print " $nounpeople[$scratch]";
+                        } elsif($poem[$b][$c] == 7) {
+                                $scratch = int ( rand(@nounplaces)) + 0;
+                                chomp($nounplaces[$scratch]);
+                                $poem[$b][$c] = $nounplaces[$scratch];
+#                                print " $nounplaces[$scratch]";
+                        } elsif($poem[$b][$c] == 8) {
+                                $scratch = int ( rand(@prepositions)) + 0;
+                                chomp($prepositions[$scratch]);
+                                $poem[$b][$c] = $prepositions[$scratch];
+#                                print " $prepositions[$scratch]";
+                        } elsif($poem[$b][$c] == 9) {
+                                $scratch = int ( rand(@conjunction)) + 0;
+                                chomp($conjunction[$scratch]);
+                                $poem[$b][$c] = $conjunction[$scratch];
+#                                print " $conjunction[$scratch]";
+                        } else {
+				$scratch = int ( rand(@article)) + 0;
+                                chomp($article[$scratch]);
+				$poem[$b][$c] = $article[$scratch];
+#				print " $article[$scratch]";
+#				$artflag = 1;
+			}
+		}
+		print "\n";
+	}
+	open (FILE, 'kerouacs_reefer');
+	$kerouacs_reefer = <FILE>;
+	close (FILE);
+
+	if (open (FILE, ">kerouacs_reefer")) {
+	    $kerouacs_reefer++;
+	    print FILE $kerouacs_reefer;
+	    close (FILE);
+	    print "\n\n Poem #$kerouacs_reefer\n";
+	} else { print "[ Can't write to the data file! Counter not incremented! ]\n";
+}
+
+}
+
+sub kloman {
+	$b = 0;
+	for($lines; $b < $lines; $b++) {
+        	        $c = 0;
+                	for($wordcount[$b]; $c < $wordcount[$b]; $c++){
+				if($poem[$b][$c] eq "a") {
+
+				@voweltest = split(//, $poem[$b][$c+1]);
+				if($voweltest[0] eq "a" || $voweltest[0] eq "e" || $voweltest[0] eq "i" || $voweltest[0] eq "o" || $voweltest[0] eq "u") {
+					$poem[$b][$c] = "an";
+				}
+				}
+			}
+	}
+}
+
+sub gutenberg {
+	$b = 0;
+	for($lines; $b < $lines; $b++) {
+		$c = 0;
+		for($wordcount[$b]; $c < $wordcount[$b]; $c++) {
+			print " $poem[$b][$c]";
+		}
+		print "\n";
+	}
+}
+
+
+pound();
+ginsberg($lines, $words);
+kerouac();
+print "NON-KLOMAN VERSION:\n";
+gutenberg();
+kloman();
+print "\nKLOMAN VERSION:\n";
+gutenberg();

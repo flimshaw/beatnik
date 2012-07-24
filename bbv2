@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+#######################################################
+#
+# "The shoe-maker on earth that had the soul of a poet
+#       in him won't have to make shoes here."
+#
+#                                     -Mark Twain
+#
+#######################################################
+#
+# Beatnik Box - Version 2.00 Alpha
+#
+# Programming Begins 11.10.03 at 8:32pm
+# at 859 N. 21st Street, Apt #2, Philadelphia, PA 19130
+#
+# The Brainchild of Charles RMC Hoey
+# Intended for a Video Installation
+# 
+#######################################################
+#
+# Day 1: 11.10.03 8:44pm
+# Alan Parsons Project
+#
+# Killing time before going to Jane's for wine and merryment.
+# Very much afraid of the construction of the word cube.  Studying
+# The Perl Cookbook for recipes that pertain to this sort of thing.
+# 
+# Here we go.
+#
+#######################################################
+
+$thecube = {
+	WORD => [ "cascade", "cascades" ],
+	CASE => 1,
+	SYNONYM => [ "fall", "pour", "tumble" ],
+	ANTONYM => [ "ascend", "climb"],
+	HOMONYM => [ "aid", "blade", "fade", "strayed", "paid", "laid", "grenade", "handmade", "invade", "collonnade", "masquerade"],
+	};
+
+$thecube2[1][1][0] = "cascade";
+$thecube2[1][1][1] = "cascades";
+$thecube2[1][2][0] = "1";
+$thecube2[1][3][0] = "fall";
+$thecube2[1][3][1] = "pour";
+$thecube2[1][3][2] = "tumble";
+
+$random = int( rand(3)) + 0;
+print "$random\n";
+
+print "They $thecube2[1][1][0] and $thecube2[1][3][$random] through the darkness.\n";
+
+printf "I am %s, and my homonyms are %s.\n",
+	$thecube->{word},
+	join(", ", @{$thecube->{HOMONYM}});
