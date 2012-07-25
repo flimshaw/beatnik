@@ -1,5 +1,9 @@
 # beatnik
 
+*DISCLAIMER: 
+There are some questionable code comments in here, but I was 20 years
+old at the time, so there's that.*
+
 Beatnik Box script for generating random Beatnik poetry.  I made this for an experimental video project back in 2003, when I was like 20 years old.  It was pretty much the first program I ever wrote.  In the end, the device that used it looked sort of like a 386 threw up in a fishtank.  See here: http://www.flickr.com/photos/mrquint15/550240120/
 
 usage
@@ -33,6 +37,6 @@ Nope.  Isn't that sad?  They all just go away, unless you save them.  I do have 
 
 => http://beatnikbox.tumblr.com/
 
-*DISCLAIMER*: 
-There are some questionable code comments in here, but I was 20 years
-old at the time, so there's that.
+## more questions!
+
+Send an email to charlie.hoey@gmail.com and I'll answer all questions.
