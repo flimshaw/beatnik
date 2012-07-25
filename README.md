@@ -1,10 +1,16 @@
-beatnik
-=======
+# beatnik
 
 Beatnik Box script for generating random Beatnik poetry.  I made this for an experimental video project back in 2003, when I was like 20 years old.  It was pretty much the first program I ever wrote.  In the end, the device that used it looked sort of like a 386 threw up in a fishtank.  See here: http://www.flickr.com/photos/mrquint15/550240120/
 
-how does it work?
-================
+usage
+
+This script requires PERL.  Download the zip file and run:
+
+    perl bbv208.pl
+    
+This will start the poetry generator, and it will print a poem out one character at a time to the terminal.
+
+## how does it work?
 
 The Beatnik script is pretty damn simple.  It has a few dictionaries grouped by part of speech, all in text files in this case since I didn't know what a database was at the time, probably.  So to generate a poem it:
 
@@ -13,8 +19,7 @@ The Beatnik script is pretty damn simple.  It has a few dictionaries grouped by 
 3.  Loops through and places a random word for each part of speech tag that makes up the sentence
 4.  Prints out the poem
 
-why are the poems actually kinda good?
-======================================
+## why are the poems actually kinda good?
 
 Turns out, if you write poems using the same words Allen Ginsberg used to write Howl, along with some other words from The Lovesong of J. Alfred Prufrock, even a computer can sometimes write something pretty good.
 
@@ -22,8 +27,7 @@ You can try the poetry machine out at my website.  A new poem is generated each 
 
 => http://flimshaw.net/beatnik/
 
-do you save the poems anywhere?
-===============================
+## do you save the poems anywhere?
 
 Nope.  Isn't that sad?  They all just go away, unless you save them.  I do have a tumblr that generates a new one each day.  You can follow it here: 
 
